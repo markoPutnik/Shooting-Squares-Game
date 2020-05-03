@@ -6,12 +6,12 @@ class GameObject {
 private:
 
 	SDL_Texture* objTexture;
-
 	SDL_Rect desRect, srcRect;
 
 	SDL_Texture* missileTex;
-
 	SDL_Rect missileRect;
+
+	int counter = 0;
 
 public:
 
@@ -41,7 +41,11 @@ public:
 
 	void renderMissile(SDL_Renderer* ren) {
 
-		missileRect.x = desRect.x + 22;
+		counter++;
+
+		if (counter == 1) {
+			missileRect.x = desRect.x + 22;
+		}
 		missileRect.y -= 2;
 
 		SDL_RenderCopy(ren, missileTex, nullptr, &missileRect);
