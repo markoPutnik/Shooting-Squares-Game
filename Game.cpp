@@ -22,6 +22,8 @@ void Game::init(const char* title, int x, int y, int width, int height, bool ful
 
 		m_Running = true;
 		mouseMenuClicked = false;
+		spaceKeyPressed = false;
+		spaceKeyReleased = false;
 		bHoldingKey = false;
 	}
 
@@ -57,6 +59,10 @@ void Game::handleEvents() {
 		case SDLK_ESCAPE:
 			m_Running = false;
 			break;
+		case SDLK_SPACE:
+			spaceKeyPressed = true;
+			spacePressedCounter++;
+			break;
 		default:
 			break;
 		}
@@ -67,6 +73,14 @@ void Game::handleEvents() {
 	case SDL_KEYUP:
 		bHoldingKey = false;
 		direction = 0;
+		switch (event.key.keysym.sym) {
+		case SDLK_SPACE:
+			// spaceKeyPressed = false;
+			spacePressedCounter = 0;
+			break;
+		default:
+			break;
+		}
 		break;
 	default:
 		break;
@@ -102,6 +116,10 @@ void Game::render() {
 
 		map->drawHills(renderer);
 		map->drawMap(renderer);
+
+		if (spaceKeyPressed) {
+			playerObject->renderMissile(renderer);
+		}
 		
 		playerObject->renderObject(renderer);
 

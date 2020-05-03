@@ -9,7 +9,6 @@ int main(int argc, char* argv[]) {
 
 	game->init("SHOOTING SQUARES", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1080, 720);
 
-
 	const int frameDelay = 1000 / 60;
 
 	Uint32 frameStart;

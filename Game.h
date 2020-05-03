@@ -17,11 +17,14 @@ private:
 
 	bool m_Running = false;
 	bool mouseMenuClicked;
+	bool spaceKeyPressed;
+	bool spaceKeyReleased;
 	bool bHoldingKey;
 
 	int m_counter = 0;
 	int mouseX, mouseY;
 	int direction = 0;
+	int spacePressedCounter = 0;
 
 	int startCounter, endCounter;
 
