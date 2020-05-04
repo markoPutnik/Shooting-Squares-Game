@@ -8,6 +8,7 @@ Menu* menu = nullptr;
 Map* map = nullptr;
 GameObject* playerObject = nullptr;
 
+
 void Game::init(const char* title, int x, int y, int width, int height, bool fullscreen) {
 
 	if (SDL_Init(SDL_INIT_EVERYTHING) == 0) {
@@ -25,6 +26,7 @@ void Game::init(const char* title, int x, int y, int width, int height, bool ful
 		spaceKeyPressed = false;
 		spaceKeyReleased = false;
 		bHoldingKey = false;
+
 	}
 
 }
@@ -60,7 +62,10 @@ void Game::handleEvents() {
 			m_Running = false;
 			break;
 		case SDLK_SPACE:
-			spaceKeyPressed = true;
+			if (spacePressedCounter == 0) {
+				spacePresses[counter2] = true;
+				counter2++;
+			}
 			spacePressedCounter++;
 			break;
 		default:
@@ -75,7 +80,6 @@ void Game::handleEvents() {
 		direction = 0;
 		switch (event.key.keysym.sym) {
 		case SDLK_SPACE:
-			// spaceKeyPressed = false;
 			spacePressedCounter = 0;
 			break;
 		default:
@@ -91,12 +95,18 @@ void Game::handleEvents() {
 void Game::update() {
 
 	cout << m_counter++ << "\n";
-	
-	if (bHoldingKey) {
-		playerObject->updateObject(direction);
-	}
 
 	if (mouseMenuClicked) {
+
+		if (bHoldingKey) {
+			playerObject->updateObject(direction);
+		}
+
+		for (int i = 0; i < 3; ++i) {
+			if (spacePresses[i]) {
+				playerObject->createMissile();
+			}
+		}
 
 		map->updateHills();
 	}
@@ -117,8 +127,10 @@ void Game::render() {
 		map->drawHills(renderer);
 		map->drawMap(renderer);
 
-		if (spaceKeyPressed) {
-			playerObject->renderMissile(renderer);
+		for (int i = 0; i < 3; ++i) {
+			if (spacePresses[i]) {
+				playerObject->renderMissile(renderer, counter2);
+			}
 		}
 		
 		playerObject->renderObject(renderer);

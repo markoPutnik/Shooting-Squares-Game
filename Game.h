@@ -15,6 +15,8 @@ private:
 	SDL_Window* window;
 	SDL_Renderer* renderer;
 
+	bool spacePresses[3] = {false,false,false };
+
 	bool m_Running = false;
 	bool mouseMenuClicked;
 	bool spaceKeyPressed;
@@ -24,7 +26,7 @@ private:
 	int m_counter = 0;
 	int mouseX, mouseY;
 	int direction = 0;
-	int spacePressedCounter = 0;
+	int spacePressedCounter = 0, counter2 = 0;
 
 	int startCounter, endCounter;
 

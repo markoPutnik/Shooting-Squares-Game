@@ -1,5 +1,6 @@
 #pragma once
 #include <SDL.h>
+#include <vector>
 #include "TextureManager.h"
 
 class GameObject {
@@ -9,9 +10,10 @@ private:
 	SDL_Rect desRect, srcRect;
 
 	SDL_Texture* missileTex;
-	SDL_Rect missileRect;
+	
+	vector<SDL_Rect> missileRects;
 
-	int counter = 0;
+	vector<bool> booleans;
 
 public:
 
@@ -25,10 +27,7 @@ public:
 		desRect.x = 1080 / 2 - 16;
 		desRect.h = desRect.w = 65;
 
-		missileRect.y = desRect.y;
-
-		missileRect.h = 50;
-		missileRect.w = 18;
+		booleans = { false, false, false };
 
 	}
 	~GameObject() = default;
@@ -39,22 +38,46 @@ public:
 
 	}
 
-	void renderMissile(SDL_Renderer* ren) {
+	void renderMissile(SDL_Renderer* ren, int nNumber) {
 
-		counter++;
 
-		if (counter == 1) {
-			missileRect.x = desRect.x + 22;
+		if (nNumber == 0 && !booleans[nNumber]) {
+			missileRects[nNumber].x = desRect.x + 22;
+			booleans[nNumber] = true;
 		}
-		missileRect.y -= 2;
+		else if (nNumber == 1 && !booleans[nNumber]) {
+			missileRects[nNumber].x = desRect.x + 22;
+			booleans[nNumber] = true;
+		}
+		else if (nNumber == 2 && !booleans[nNumber]) {
+			missileRects[nNumber].x = desRect.x + 22;
+			booleans[nNumber] = true;
+		}
 
-		SDL_RenderCopy(ren, missileTex, nullptr, &missileRect);
+		if (missileRects[nNumber].y <= 700) {
+			missileRects[nNumber].y -= 3;
+		}
+
+		SDL_RenderCopy(ren, missileTex, nullptr, &missileRects[nNumber]);
 
 	}
 
 	void updateObject(int x) {
 
-		desRect.x += x;
+		desRect.x += x*2;
+
+	}
+
+	void createMissile() {
+
+		SDL_Rect missileRect;
+
+		missileRect.y = desRect.y;
+
+		missileRect.h = 50;
+		missileRect.w = 18;
+
+		missileRects.push_back(missileRect);
 
 	}
 
