@@ -3,10 +3,12 @@
 #include "Menu.h"
 #include "Map.h"
 #include "GameObject.h"
+#include "MissileText.h"
 
 Menu* menu = nullptr;
 Map* map = nullptr;
 GameObject* playerObject = nullptr;
+MissileText* missileText = nullptr;
 
 
 void Game::init(const char* title, int x, int y, int width, int height, bool fullscreen) {
@@ -20,6 +22,7 @@ void Game::init(const char* title, int x, int y, int width, int height, bool ful
 		menu = new Menu(renderer);
 		map = new Map(renderer);
 		playerObject = new GameObject(renderer);
+		missileText = new MissileText(renderer);
 
 		m_Running = true;
 		mouseMenuClicked = false;
@@ -126,6 +129,8 @@ void Game::render() {
 
 		map->drawHills(renderer);
 		map->drawMap(renderer);
+
+		missileText->renderMissileText(renderer, counter2);
 
 		for (int i = 0; i < 3; ++i) {
 			if (spacePresses[i]) {

@@ -27,7 +27,7 @@ public:
 		desRect.x = 1080 / 2 - 16;
 		desRect.h = desRect.w = 65;
 
-		booleans = { false, false, false };
+		booleans = { false, false, false, false };
 
 	}
 	~GameObject() = default;
@@ -40,16 +40,16 @@ public:
 
 	void renderMissile(SDL_Renderer* ren, int nNumber) {
 
-
-		if (nNumber == 0 && !booleans[nNumber]) {
-			missileRects[nNumber].x = desRect.x + 22;
-			booleans[nNumber] = true;
-		}
-		else if (nNumber == 1 && !booleans[nNumber]) {
+		
+		if (nNumber == 1 && !booleans[nNumber]) {
 			missileRects[nNumber].x = desRect.x + 22;
 			booleans[nNumber] = true;
 		}
 		else if (nNumber == 2 && !booleans[nNumber]) {
+			missileRects[nNumber].x = desRect.x + 22;
+			booleans[nNumber] = true;
+		}
+		else if (nNumber== 3 && !booleans[nNumber]) {
 			missileRects[nNumber].x = desRect.x + 22;
 			booleans[nNumber] = true;
 		}
@@ -64,7 +64,17 @@ public:
 
 	void updateObject(int x) {
 
-		desRect.x += x*2;
+		if (desRect.x >= 0)
+			desRect.x += x * 2;
+		else {
+			desRect.x = 1;
+		}
+
+		if (desRect.x <= 1015)
+			desRect.x += x * 2;
+		else {
+			desRect.x = 1015;
+		}
 
 	}
 
