@@ -7,10 +7,12 @@ class GameObject {
 private:
 
 	SDL_Texture* objTexture;
-	SDL_Rect desRect, srcRect;
+	SDL_Rect desRect;
 
-	SDL_Texture* missileTex;
+	SDL_Texture* fallingObjectTex;
+	SDL_Rect fallingObjectRect;
 	
+	SDL_Texture* missileTex;
 	vector<SDL_Rect> missileRects;
 
 	vector<bool> booleans;
@@ -22,10 +24,15 @@ public:
 
 		objTexture = TextureManager::getTex(ren, "assets/char.bmp");
 		missileTex = TextureManager::getTex(ren, "assets/missile.bmp");
+		fallingObjectTex = TextureManager::getTex(ren, "assets/fallingSquare.bmp");
 
 		desRect.y = 595;
 		desRect.x = 1080 / 2 - 16;
 		desRect.h = desRect.w = 65;
+
+		fallingObjectRect.w = 65;
+		fallingObjectRect.h = 72;
+		fallingObjectRect.x = fallingObjectRect.y = 0;
 
 		booleans = { false, false, false, false };
 
@@ -35,6 +42,12 @@ public:
 	void renderObject(SDL_Renderer* ren) {
 
 		SDL_RenderCopy(ren, objTexture, nullptr, &desRect);
+
+	}
+
+	void renderFallingObjects(SDL_Renderer* ren) {
+
+		SDL_RenderCopy(ren, fallingObjectTex, nullptr, &fallingObjectRect);
 
 	}
 
@@ -59,6 +72,14 @@ public:
 		}
 
 		SDL_RenderCopy(ren, missileTex, nullptr, &missileRects[nNumber]);
+
+	}
+
+	void updateFallingObjects() {
+
+		if (fallingObjectRect.y <= 700) {
+			fallingObjectRect.y += 2;
+		}
 
 	}
 

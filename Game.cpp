@@ -112,6 +112,7 @@ void Game::update() {
 		}
 
 		map->updateHills();
+		playerObject->updateFallingObjects();
 	}
 
 }
@@ -139,6 +140,7 @@ void Game::render() {
 		}
 		
 		playerObject->renderObject(renderer);
+		playerObject->renderFallingObjects(renderer);
 
 	}
 	
