@@ -113,6 +113,11 @@ void Game::update() {
 
 		map->updateHills();
 		playerObject->updateFallingObjects();
+
+		if (!playerObject->checkCollision(counter2)) {
+			m_Running = false;
+		}
+
 	}
 
 }
