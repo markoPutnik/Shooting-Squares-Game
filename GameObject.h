@@ -22,6 +22,8 @@ private:
 
 	vector<bool> booleans;
 
+	int nCounterMissedObjects;
+
 public:
 
 	GameObject() = default;
@@ -38,5 +40,9 @@ public:
 	void createMissile();
 
 	bool checkCollision(int nNumber);
+
+	bool returnCounterMissedObjects() {
+		return (nCounterMissedObjects == 5);
+	}
 
 };

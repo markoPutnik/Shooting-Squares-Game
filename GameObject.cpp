@@ -25,6 +25,8 @@ GameObject::GameObject(SDL_Renderer* ren) {
 
 	booleans = { false, false, false, false };
 
+	nCounterMissedObjects = 0;
+
 }
 
 void GameObject::renderObject(SDL_Renderer* ren) {
@@ -71,6 +73,11 @@ void GameObject::updateFallingObjects() {
 		if (fallingObjectsVec[i].y <= 710) {
 			fallingObjectsVec[i].y += 2;
 		}
+		else if(fallingObjectsVec[i].y == 712){
+			nCounterMissedObjects++;
+			fallingObjectsVec[i].y = -200;
+			fallingObjectsVec[i].x = rand() % 1018;
+		}
 	}
 
 }
@@ -109,7 +116,12 @@ bool GameObject::checkCollision(int nNumber) {
 	for (auto &rec : fallingObjectsVec) {
 
 		if (Collision::AABB(rec, missileRects[nNumber])) {
-			rec.y = 0;
+			if (rec.y >= 250) {
+				rec.y = -450;
+			}
+			else {
+				rec.y -= 250;
+			}
 			rec.x = rand() % 1018;
 		}
 

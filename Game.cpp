@@ -118,6 +118,10 @@ void Game::update() {
 			m_Running = false;
 		}
 
+		if (playerObject->returnCounterMissedObjects()) {
+			m_Running = false;
+		}
+
 	}
 
 }
