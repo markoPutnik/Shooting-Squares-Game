@@ -9,35 +9,71 @@ using namespace std;
 class MissileText {
 private:
 
-	vector<SDL_Texture*> texts;
+	vector<SDL_Texture*> missedObjects;
+	vector<SDL_Texture*> hitObjects;
 
-	SDL_Rect desRect;
+	SDL_Rect missedObjectsRect;
+	SDL_Rect hitObjectsRect;
 
 public:
 
 	MissileText() = default;
 	MissileText(SDL_Renderer* ren) {
 
-		texts.push_back(TextureManager::getTex(ren, "assets/missileText0.bmp"));
-		texts.push_back(TextureManager::getTex(ren, "assets/missileText1.bmp"));
-		texts.push_back(TextureManager::getTex(ren, "assets/missileText2.bmp"));
-		texts.push_back(TextureManager::getTex(ren, "assets/missileText3.bmp"));
+		missedObjects.push_back(TextureManager::getTex(ren, "assets/missedObjectsFiles/missedObject0.bmp"));
+		missedObjects.push_back(TextureManager::getTex(ren, "assets/missedObjectsFiles/missedObject1.bmp"));
+		missedObjects.push_back(TextureManager::getTex(ren, "assets/missedObjectsFiles/missedObject2.bmp"));
+		missedObjects.push_back(TextureManager::getTex(ren, "assets/missedObjectsFiles/missedObject3.bmp"));
+		missedObjects.push_back(TextureManager::getTex(ren, "assets/missedObjectsFiles/missedObject4.bmp"));
+		missedObjects.push_back(TextureManager::getTex(ren, "assets/missedObjectsFiles/missedObject5.bmp"));
 
-		desRect.h = 90;
-		desRect.w = 240;
-		desRect.x = desRect.y = 10;
+		missedObjectsRect.h = 90;
+		missedObjectsRect.w = 240;
+		missedObjectsRect.x = missedObjectsRect.y = 10;
+
+		hitObjects.push_back(TextureManager::getTex(ren, "assets/hitObjectsFiles/hitObjects0.bmp"));
+		hitObjects.push_back(TextureManager::getTex(ren, "assets/hitObjectsFiles/hitObjects1.bmp"));
+		hitObjects.push_back(TextureManager::getTex(ren, "assets/hitObjectsFiles/hitObjects2.bmp"));
+		hitObjects.push_back(TextureManager::getTex(ren, "assets/hitObjectsFiles/hitObjects3.bmp"));
+		hitObjects.push_back(TextureManager::getTex(ren, "assets/hitObjectsFiles/hitObjects4.bmp"));
+		hitObjects.push_back(TextureManager::getTex(ren, "assets/hitObjectsFiles/hitObjects5.bmp"));
+
+		hitObjectsRect.h = 90;
+		hitObjectsRect.w = 240;
+		hitObjectsRect.x = 10;
+		hitObjectsRect.y = 100;
 
 	}
 	~MissileText() {
-		for (auto& i : texts) {
+
+		for (auto& i : missedObjects) {
 			i = nullptr;
 		}
+
+		for (auto &i : hitObjects) {
+			i = nullptr;
+		}
+
 	}
 
-	void renderMissileText(SDL_Renderer* ren, int nNumber) {
+	void renderMissedObjectsText(SDL_Renderer* ren, int nNumber) {
 
-		if (nNumber >= 0 && nNumber <= 3) {
-			SDL_RenderCopy(ren, texts[3 - nNumber], nullptr, &desRect);
+		if (nNumber >= 0 && nNumber <= 5) {
+			SDL_RenderCopy(ren, missedObjects[nNumber], nullptr, &missedObjectsRect);
+		}
+		else {
+			SDL_RenderCopy(ren, missedObjects[0], nullptr, &missedObjectsRect);
+		}
+
+	}
+
+	void renderHitObjectsText(SDL_Renderer* ren, int nNumber) {
+
+		if (nNumber >= 0 && nNumber <= 5) {
+			SDL_RenderCopy(ren, hitObjects[nNumber], nullptr, &hitObjectsRect);
+		}
+		else {
+
 		}
 
 	}

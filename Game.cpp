@@ -106,19 +106,27 @@ void Game::update() {
 		}
 
 		for (int i = 0; i < 3; ++i) {
-			if (spacePresses[i]) {
+			if (spacePresses[i] && spacePresses2[i]) {
 				playerObject->createMissile();
+				spacePresses2[i] = false;
 			}
 		}
 
 		map->updateHills();
 		playerObject->updateFallingObjects();
 
-		if (!playerObject->checkCollision(counter2)) {
+		if (!playerObject->checkCollisionMissiles(counter2)) {
+			m_Running = false;
+		}
+		if (!playerObject->checkCollisionObjectFallingObject()) {
 			m_Running = false;
 		}
 
-		if (playerObject->returnCounterMissedObjects()) {
+		if (playerObject->returnCounterMissedObjects() == 5) {
+			m_Running = false;
+		}
+
+		if (playerObject->returnCounterHitObjects() == 5) {
 			m_Running = false;
 		}
 
@@ -140,19 +148,20 @@ void Game::render() {
 		map->drawHills(renderer);
 		map->drawMap(renderer);
 
-		missileText->renderMissileText(renderer, counter2);
+		missileText->renderMissedObjectsText(renderer, playerObject->returnCounterMissedObjects());
+		missileText->renderHitObjectsText(renderer, playerObject->returnCounterHitObjects());
 
 		for (int i = 0; i < 3; ++i) {
 			if (spacePresses[i]) {
 				playerObject->renderMissile(renderer, counter2);
 			}
 		}
-		
+
 		playerObject->renderObject(renderer);
 		playerObject->renderFallingObjects(renderer);
 
 	}
-	
+
 
 	SDL_RenderPresent(renderer);
 
@@ -162,7 +171,7 @@ void Game::clean() {
 
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
-	
+
 	SDL_Quit();
 
 }

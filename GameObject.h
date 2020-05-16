@@ -2,6 +2,7 @@
 #include <SDL.h>
 #include <vector>
 #include <random>
+#include <iostream>
 #include "TextureManager.h"
 #include "CollisionAABB.h"
 
@@ -16,13 +17,15 @@ private:
 	SDL_Texture* fallingObjectTex;
 	SDL_Rect fallingObjectRect;
 	vector<SDL_Rect> fallingObjectsVec;
-	
+
 	SDL_Texture* missileTex;
 	vector<SDL_Rect> missileRects;
 
-	vector<bool> booleans;
+	SDL_Rect missileRect;
 
-	int nCounterMissedObjects;
+	int nCounterMissedObjects, nCounterHitObjects;
+
+	int numberN;
 
 public:
 
@@ -39,10 +42,15 @@ public:
 
 	void createMissile();
 
-	bool checkCollision(int nNumber);
+	bool checkCollisionMissiles(int nNumber);
+	bool checkCollisionObjectFallingObject();
 
-	bool returnCounterMissedObjects() {
-		return (nCounterMissedObjects == 5);
+	int returnCounterMissedObjects() {
+		return nCounterMissedObjects;
+	}
+
+	int returnCounterHitObjects() {
+		return nCounterHitObjects;
 	}
 
 };

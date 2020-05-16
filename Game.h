@@ -15,7 +15,8 @@ private:
 	SDL_Window* window;
 	SDL_Renderer* renderer;
 
-	bool spacePresses[3] = {false,false,false };
+	bool spacePresses[3] = { false,false,false };
+	bool spacePresses2[3] = { true,true,true};
 
 	bool m_Running = false;
 	bool mouseMenuClicked;

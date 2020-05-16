@@ -23,9 +23,17 @@ GameObject::GameObject(SDL_Renderer* ren) {
 	fallingObjectsVec[1].y -= 500;
 	fallingObjectsVec[2].y -= 250;
 
-	booleans = { false, false, false, false };
+	missileRect.h = 50;
+	missileRect.w = 18;
+	missileRect.y = desRect.y;
+
+	for (int i = 0; i < 4; ++i) {
+		missileRects.push_back(missileRect);
+	}
 
 	nCounterMissedObjects = 0;
+	nCounterHitObjects = 0;
+	numberN = 0;
 
 }
 
@@ -46,24 +54,15 @@ void GameObject::renderFallingObjects(SDL_Renderer* ren) {
 void GameObject::renderMissile(SDL_Renderer* ren, int nNumber) {
 
 
-	if (nNumber == 1 && !booleans[nNumber]) {
-		missileRects[nNumber].x = desRect.x + 22;
-		booleans[nNumber] = true;
-	}
-	else if (nNumber == 2 && !booleans[nNumber]) {
-		missileRects[nNumber].x = desRect.x + 22;
-		booleans[nNumber] = true;
-	}
-	else if (nNumber == 3 && !booleans[nNumber]) {
-		missileRects[nNumber].x = desRect.x + 22;
-		booleans[nNumber] = true;
-	}
+	if (nNumber > 0 && nNumber < 4 && numberN < 4) {
 
-	if (missileRects[nNumber].y <= 700) {
-		missileRects[nNumber].y -= 3;
-	}
+		if (missileRects[nNumber - 1].y <= 700) {
+			missileRects[nNumber - 1].y -= 5;
+		}
 
-	SDL_RenderCopy(ren, missileTex, nullptr, &missileRects[nNumber]);
+		SDL_RenderCopy(ren, missileTex, nullptr, &missileRects[nNumber - 1]);
+
+	}
 
 }
 
@@ -73,7 +72,7 @@ void GameObject::updateFallingObjects() {
 		if (fallingObjectsVec[i].y <= 710) {
 			fallingObjectsVec[i].y += 2;
 		}
-		else if(fallingObjectsVec[i].y == 712){
+		else if (fallingObjectsVec[i].y == 712) {
 			nCounterMissedObjects++;
 			fallingObjectsVec[i].y = -200;
 			fallingObjectsVec[i].x = rand() % 1018;
@@ -100,39 +99,57 @@ void GameObject::updateObject(int x) {
 
 void GameObject::createMissile() {
 
-	SDL_Rect missileRect;
+	if (numberN >= 0 && numberN < 3) {
 
-	missileRect.y = desRect.y;
+		missileRects[numberN].x = desRect.x + 23;
 
-	missileRect.h = 50;
-	missileRect.w = 18;
+		cout << "Created a missile\n";
 
-	missileRects.push_back(missileRect);
+	}
+
+	numberN++;
 
 }
 
-bool GameObject::checkCollision(int nNumber) {
+bool GameObject::checkCollisionMissiles(int nNumber) {
 
-	for (auto &rec : fallingObjectsVec) {
+	if (nNumber > 0 && nNumber < 4) {
 
-		if (Collision::AABB(rec, missileRects[nNumber])) {
-			if (rec.y >= 250) {
-				rec.y = -450;
+		for (auto &rec : fallingObjectsVec) {
+
+			if (Collision::AABB(rec, missileRects[nNumber - 1])) {
+
+				if (rec.y >= 250) {
+					rec.y = -450;
+				}
+				else {
+					rec.y -= 250;
+				}
+				rec.x = rand() % 1018;
+
+				missileRects[nNumber - 1].y = 720;
+
+				nCounterHitObjects++;
+
 			}
-			else {
-				rec.y -= 250;
-			}
-			rec.x = rand() % 1018;
-		}
 
-		if (Collision::AABB(rec, desRect)) {
-			return false;
 		}
 
 	}
 
 	return true;
 
+}
+
+bool GameObject::checkCollisionObjectFallingObject() {
+
+	for (auto &rec : fallingObjectsVec) {
+		if (Collision::AABB(rec, desRect)) {
+			return false;
+		}
+	}
+
+	return true;
 }
 
 GameObject::~GameObject() {
