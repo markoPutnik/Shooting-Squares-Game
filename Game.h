@@ -20,6 +20,7 @@ private:
 
 	bool m_Running = false;
 	bool mouseMenuClicked;
+	bool mouseMissionOptionClicked;
 	bool spaceKeyPressed;
 	bool spaceKeyReleased;
 	bool bHoldingKey;

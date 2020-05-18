@@ -26,6 +26,7 @@ void Game::init(const char* title, int x, int y, int width, int height, bool ful
 
 		m_Running = true;
 		mouseMenuClicked = false;
+		mouseMissionOptionClicked = false;
 		spaceKeyPressed = false;
 		spaceKeyReleased = false;
 		bHoldingKey = false;
@@ -46,10 +47,13 @@ void Game::handleEvents() {
 	case SDL_MOUSEBUTTONDOWN:
 		if (event.button.button == SDL_BUTTON_LEFT) {
 			SDL_GetMouseState(&mouseX, &mouseY);
-			if (mouseX < 700 && mouseX > 380 && mouseY < 410 && mouseY > 260) {
-				if (mouseY > 337)
+			if (mouseX < 700 && mouseX > 380 && mouseY < 485 && mouseY > 260) {
+				if (mouseY > 337 && mouseY < 410)
 					m_Running = false;
-				mouseMenuClicked = true;
+				else if (mouseY >= 410)
+					mouseMissionOptionClicked = true;
+				else
+					mouseMenuClicked = true;
 			}
 		}
 		break;
@@ -122,7 +126,7 @@ void Game::update() {
 			m_Running = false;
 		}
 
-		if (playerObject->returnCounterMissedObjects() == 5) {
+		if (playerObject->returnCounterMissedObjects() == 3) {
 			m_Running = false;
 		}
 
@@ -141,7 +145,12 @@ void Game::render() {
 	SDL_SetRenderDrawColor(renderer, 255, 255, 200, 255);
 
 	if (!mouseMenuClicked) {
-		menu->render(renderer);
+		if (!mouseMissionOptionClicked) {
+			menu->render(renderer);
+		}
+		else {
+			menu->renderMissionText(renderer);
+		}
 	}
 	else {
 
