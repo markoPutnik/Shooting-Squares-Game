@@ -48,11 +48,14 @@ void Game::handleEvents() {
 		if (event.button.button == SDL_BUTTON_LEFT) {
 			SDL_GetMouseState(&mouseX, &mouseY);
 			if (mouseX < 700 && mouseX > 380 && mouseY < 485 && mouseY > 260) {
-				if (mouseY > 337 && mouseY < 410)
+				if (mouseY > 337 && mouseY < 410 && !mouseMissionOptionClicked)
 					m_Running = false;
-				else if (mouseY >= 410)
+				else if (mouseY >= 410) {
 					mouseMissionOptionClicked = true;
-				else
+					if (mouseX > 20 && mouseX < 170 && mouseY > 20 && mouseY < 90)
+						mouseMissionOptionClicked = false;
+				}
+				else if(!mouseMissionOptionClicked)
 					mouseMenuClicked = true;
 			}
 		}
@@ -147,6 +150,7 @@ void Game::render() {
 	if (!mouseMenuClicked) {
 		if (!mouseMissionOptionClicked) {
 			menu->render(renderer);
+			
 		}
 		else {
 			menu->renderMissionText(renderer);
