@@ -15,12 +15,13 @@ private:
 	SDL_Window* window;
 	SDL_Renderer* renderer;
 
-	bool spacePresses[3] = { false,false,false };
-	bool spacePresses2[3] = { true,true,true};
+	bool spacePresses[7] = { false,false, false, false, false, false, false };
+	bool spacePresses2[7] = { true,true, true, true, true, true, true };
 
 	bool m_Running = false;
 	bool mouseMenuClicked;
 	bool mouseMissionOptionClicked;
+	bool bGoBack;
 	bool spaceKeyPressed;
 	bool spaceKeyReleased;
 	bool bHoldingKey;

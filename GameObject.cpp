@@ -58,7 +58,7 @@ void GameObject::renderMissile(SDL_Renderer* ren, int nNumber) {
 	if (nNumber > 0 && nNumber < 14 && numberN < 14) {
 
 		if (missileRects[nNumber - 1].y <= 700) {
-			missileRects[nNumber - 1].y -= (5 - (int)(nNumber/2));
+			missileRects[nNumber - 1].y -= (5 - (int)(nNumber/3));
 		}
 
 		SDL_RenderCopy(ren, missileTex, nullptr, &missileRects[nNumber - 1]);

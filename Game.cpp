@@ -30,6 +30,7 @@ void Game::init(const char* title, int x, int y, int width, int height, bool ful
 		spaceKeyPressed = false;
 		spaceKeyReleased = false;
 		bHoldingKey = false;
+		bGoBack = false;
 
 	}
 
@@ -52,9 +53,8 @@ void Game::handleEvents() {
 					m_Running = false;
 				else if (mouseY >= 410) {
 					if (mouseX > 20 && mouseX < 170 && mouseY > 20 && mouseY < 90)
-						mouseMissionOptionClicked = false;
-					else
-						mouseMissionOptionClicked = true;
+						bGoBack = true;
+					mouseMissionOptionClicked = true;
 				}
 				else if(!mouseMissionOptionClicked)
 					mouseMenuClicked = true;
@@ -113,7 +113,7 @@ void Game::update() {
 			playerObject->updateObject(direction);
 		}
 
-		for (int i = 0; i < 3; ++i) {
+		for (int i = 0; i < 7; ++i) {
 			if (spacePresses[i] && spacePresses2[i]) {
 				playerObject->createMissile();
 				spacePresses2[i] = false;
@@ -134,7 +134,7 @@ void Game::update() {
 			m_Running = false;
 		}
 
-		if (playerObject->returnCounterHitObjects() == 8) {
+		if (playerObject->returnCounterHitObjects() == 10) {
 			m_Running = false;
 		}
 
@@ -151,7 +151,11 @@ void Game::render() {
 	if (!mouseMenuClicked) {
 		if (!mouseMissionOptionClicked) {
 			menu->render(renderer);
-			
+		}
+		else if (bGoBack) {
+			menu->render(renderer);
+			mouseMissionOptionClicked = false;
+			bGoBack = false;
 		}
 		else {
 			menu->renderMissionText(renderer);

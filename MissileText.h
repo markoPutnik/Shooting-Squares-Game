@@ -71,11 +71,11 @@ public:
 
 	void renderHitObjectsText(SDL_Renderer* ren, int nNumber) {
 
-		if (nNumber >= 0 && nNumber <= 5) {
+		if (nNumber >= 0 && nNumber <= 7) {
 			SDL_RenderCopy(ren, hitObjects[nNumber], nullptr, &hitObjectsRect);
 		}
 		else {
-			SDL_RenderCopy(ren, hitObjects[5], nullptr, &hitObjectsRect);
+			SDL_RenderCopy(ren, hitObjects[7], nullptr, &hitObjectsRect);
 		}
 
 	}
