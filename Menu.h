@@ -26,7 +26,11 @@ public:
 		goBackButtonRect = { 20, 20, 150, 70 };
 
 	}
-	~Menu() = default;
+	~Menu() {
+		texture = nullptr;
+		missionTex = nullptr;
+		goBackButtonTex = nullptr;
+	}
 
 	void render(SDL_Renderer* ren) {
 
