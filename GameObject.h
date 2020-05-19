@@ -24,7 +24,7 @@ private:
 	SDL_Rect missileRect;
 
 	int nCounterMissedObjects, nCounterHitObjects;
-
+	int nMakeSpeedSlower;
 	int numberN;
 
 public:

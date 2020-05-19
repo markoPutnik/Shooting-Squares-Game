@@ -27,13 +27,14 @@ GameObject::GameObject(SDL_Renderer* ren) {
 	missileRect.w = 18;
 	missileRect.y = desRect.y;
 
-	for (int i = 0; i < 4; ++i) {
+	for (int i = 0; i < 14; ++i) {
 		missileRects.push_back(missileRect);
 	}
 
 	nCounterMissedObjects = 0;
 	nCounterHitObjects = 0;
 	numberN = 0;
+	nMakeSpeedSlower = 0;
 
 }
 
@@ -54,10 +55,10 @@ void GameObject::renderFallingObjects(SDL_Renderer* ren) {
 void GameObject::renderMissile(SDL_Renderer* ren, int nNumber) {
 
 
-	if (nNumber > 0 && nNumber < 4 && numberN < 4) {
+	if (nNumber > 0 && nNumber < 14 && numberN < 14) {
 
 		if (missileRects[nNumber - 1].y <= 700) {
-			missileRects[nNumber - 1].y -= 5;
+			missileRects[nNumber - 1].y -= (5 - (int)(nNumber/2));
 		}
 
 		SDL_RenderCopy(ren, missileTex, nullptr, &missileRects[nNumber - 1]);
@@ -99,7 +100,7 @@ void GameObject::updateObject(int x) {
 
 void GameObject::createMissile() {
 
-	if (numberN >= 0 && numberN < 3) {
+	if (numberN >= 0 && numberN < 13) {
 
 		missileRects[numberN].x = desRect.x + 23;
 
@@ -113,7 +114,7 @@ void GameObject::createMissile() {
 
 bool GameObject::checkCollisionMissiles(int nNumber) {
 
-	if (nNumber > 0 && nNumber < 4) {
+	if (nNumber > 0 && nNumber < 14) {
 
 		for (auto &rec : fallingObjectsVec) {
 

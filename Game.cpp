@@ -51,9 +51,10 @@ void Game::handleEvents() {
 				if (mouseY > 337 && mouseY < 410 && !mouseMissionOptionClicked)
 					m_Running = false;
 				else if (mouseY >= 410) {
-					mouseMissionOptionClicked = true;
 					if (mouseX > 20 && mouseX < 170 && mouseY > 20 && mouseY < 90)
 						mouseMissionOptionClicked = false;
+					else
+						mouseMissionOptionClicked = true;
 				}
 				else if(!mouseMissionOptionClicked)
 					mouseMenuClicked = true;
@@ -133,7 +134,7 @@ void Game::update() {
 			m_Running = false;
 		}
 
-		if (playerObject->returnCounterHitObjects() == 5) {
+		if (playerObject->returnCounterHitObjects() == 8) {
 			m_Running = false;
 		}
 
