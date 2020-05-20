@@ -21,7 +21,6 @@ private:
 	bool m_Running = false;
 	bool mouseMenuClicked;
 	bool mouseMissionOptionClicked;
-	bool bGoBack;
 	bool spaceKeyPressed;
 	bool spaceKeyReleased;
 	bool bHoldingKey;

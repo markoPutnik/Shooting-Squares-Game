@@ -157,6 +157,7 @@
     <ClInclude Include="CollisionAABB.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="KeyPressed.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="MissileText.h" />

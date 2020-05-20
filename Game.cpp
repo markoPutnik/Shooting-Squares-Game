@@ -30,7 +30,6 @@ void Game::init(const char* title, int x, int y, int width, int height, bool ful
 		spaceKeyPressed = false;
 		spaceKeyReleased = false;
 		bHoldingKey = false;
-		bGoBack = false;
 
 	}
 
@@ -53,7 +52,6 @@ void Game::handleEvents() {
 					m_Running = false;
 				else if (mouseY >= 410) {
 					if (mouseX > 20 && mouseX < 170 && mouseY > 20 && mouseY < 90)
-						bGoBack = true;
 					mouseMissionOptionClicked = true;
 				}
 				else if(!mouseMissionOptionClicked)
@@ -151,11 +149,6 @@ void Game::render() {
 	if (!mouseMenuClicked) {
 		if (!mouseMissionOptionClicked) {
 			menu->render(renderer);
-		}
-		else if (bGoBack) {
-			menu->render(renderer);
-			mouseMissionOptionClicked = false;
-			bGoBack = false;
 		}
 		else {
 			menu->renderMissionText(renderer);
