@@ -22,7 +22,7 @@ public:
 		texture = TextureManager::getTex(ren, "assets/mainMenu2.bmp");
 		missionTex = TextureManager::getTex(ren, "assets/missionMenu.bmp");
 		goBackButtonTex = TextureManager::getTex(ren, "assets/goBackButton.bmp");
-		goBackOptionTex = TextureManager::getTex(ren, "assets/pressSpaceButton.bmp");
+		goBackOptionTex = TextureManager::getTex(ren, "assets/pressPButton.bmp");
 
 		menuRect = { 1080/3 + 20, 720/3 + 20,320, 222 };
 		missionRect = { 1080 / 3 , 720 / 3 , 360 , 240 };
