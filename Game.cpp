@@ -25,6 +25,7 @@ void Game::init(const char* title, int x, int y, int width, int height, bool ful
 		missileText = new MissileText(renderer);
 
 		m_Running = true;
+		m_Running2 = true;
 		mouseMenuClicked = false;
 		mouseMissionOptionClicked = false;
 		spaceKeyPressed = false;
@@ -42,7 +43,7 @@ void Game::handleEvents() {
 
 	switch (event.type) {
 	case SDL_QUIT:
-		m_Running = false;
+		m_Running2 = false;
 		break;
 	case SDL_MOUSEBUTTONDOWN:
 		if (event.button.button == SDL_BUTTON_LEFT) {
@@ -76,6 +77,9 @@ void Game::handleEvents() {
 				counter2++;
 			}
 			spacePressedCounter++;
+			if (!m_Running) {
+				m_Running = true;
+			}
 			break;
 		default:
 			break;
@@ -146,30 +150,39 @@ void Game::render() {
 
 	SDL_SetRenderDrawColor(renderer, 255, 255, 200, 255);
 
-	if (!mouseMenuClicked) {
-		if (!mouseMissionOptionClicked) {
-			menu->render(renderer);
+	if (m_Running) {
+
+		if (!mouseMenuClicked) {
+			if (!mouseMissionOptionClicked) {
+				menu->render(renderer);
+			}
+			else {
+				menu->renderMissionText(renderer);
+			}
 		}
 		else {
-			menu->renderMissionText(renderer);
+
+			map->drawHills(renderer);
+			map->drawMap(renderer);
+
+			missileText->renderMissedObjectsText(renderer, playerObject->returnCounterMissedObjects());
+			missileText->renderHitObjectsText(renderer, playerObject->returnCounterHitObjects());
+
+			for (int i = 0; i < 3; ++i) {
+				if (spacePresses[i]) {
+					playerObject->renderMissile(renderer, counter2);
+				}
+			}
+
+			playerObject->renderObject(renderer);
+			playerObject->renderFallingObjects(renderer);
+
 		}
+
 	}
 	else {
 
-		map->drawHills(renderer);
-		map->drawMap(renderer);
-
-		missileText->renderMissedObjectsText(renderer, playerObject->returnCounterMissedObjects());
-		missileText->renderHitObjectsText(renderer, playerObject->returnCounterHitObjects());
-
-		for (int i = 0; i < 3; ++i) {
-			if (spacePresses[i]) {
-				playerObject->renderMissile(renderer, counter2);
-			}
-		}
-
-		playerObject->renderObject(renderer);
-		playerObject->renderFallingObjects(renderer);
+		menu->renderGoBackOption(renderer);
 
 	}
 

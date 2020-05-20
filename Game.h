@@ -18,7 +18,7 @@ private:
 	bool spacePresses[7] = { false,false, false, false, false, false, false };
 	bool spacePresses2[7] = { true,true, true, true, true, true, true };
 
-	bool m_Running = false;
+	bool m_Running, m_Running2;
 	bool mouseMenuClicked;
 	bool mouseMissionOptionClicked;
 	bool spaceKeyPressed;
@@ -42,7 +42,7 @@ public:
 	}
 
 	bool isRunning() {
-		return m_Running;
+		return m_Running2;
 	}
 
 	void init(const char* title, int x, int y, int width, int height, bool fullscreen = false);
