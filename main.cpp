@@ -34,7 +34,7 @@ int main(int argc, char* argv[]) {
 
 		}
 
-		bPlayAgain = keyPressed->checkSpacePressed();
+		
 	}
 
 	game->clean();
