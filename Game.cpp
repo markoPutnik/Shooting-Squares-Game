@@ -77,6 +77,8 @@ void Game::handleEvents() {
 				counter2++;
 			}
 			spacePressedCounter++;
+			break;
+		case SDLK_p:
 			if (!m_Running) {
 				m_Running = true;
 			}
