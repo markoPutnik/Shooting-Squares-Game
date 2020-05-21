@@ -67,6 +67,13 @@ void GameObject::renderMissile(SDL_Renderer* ren, int nNumber) {
 
 }
 
+void GameObject::reset() {
+	missileRects.clear();
+	for (int i = 0; i < 14; ++i) {
+		missileRects.push_back(missileRect);
+	}
+}
+
 void GameObject::updateFallingObjects() {
 
 	for (int i = 0; i < fallingObjectsVec.size(); ++i) {

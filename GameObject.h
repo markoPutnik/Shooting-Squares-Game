@@ -42,6 +42,8 @@ public:
 
 	void createMissile();
 
+	void reset();
+
 	bool checkCollisionMissiles(int nNumber);
 	bool checkCollisionObjectFallingObject();
 

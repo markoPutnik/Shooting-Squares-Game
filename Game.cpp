@@ -81,6 +81,7 @@ void Game::handleEvents() {
 		case SDLK_p:
 			if (!m_Running) {
 				m_Running = true;
+				playerObject->reset();
 			}
 			break;
 		default:
