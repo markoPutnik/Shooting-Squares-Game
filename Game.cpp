@@ -82,6 +82,13 @@ void Game::handleEvents() {
 			if (!m_Running) {
 				m_Running = true;
 				playerObject->reset();
+				counter2 = 0;
+				for (int i = 0; i < 7; ++i) {
+					spacePresses[i] = false;
+				}
+				for (int i = 0; i < 7; ++i) {
+					spacePresses2[i] = true;
+				}
 			}
 			break;
 		default:
