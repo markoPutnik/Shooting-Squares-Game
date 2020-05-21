@@ -39,6 +39,9 @@ public:
 		hitObjects.push_back(TextureManager::getTex(ren, "assets/hitObjectsFiles/hitObjects5.bmp"));
 		hitObjects.push_back(TextureManager::getTex(ren, "assets/hitObjectsFiles/hitObjects6.bmp"));
 		hitObjects.push_back(TextureManager::getTex(ren, "assets/hitObjectsFiles/hitObjects7.bmp"));
+		hitObjects.push_back(TextureManager::getTex(ren, "assets/hitObjectsFiles/hitObjects8.bmp"));
+		hitObjects.push_back(TextureManager::getTex(ren, "assets/hitObjectsFiles/hitObjects9.bmp"));
+		hitObjects.push_back(TextureManager::getTex(ren, "assets/hitObjectsFiles/hitObjects10.bmp"));
 
 		hitObjectsRect.h = 90;
 		hitObjectsRect.w = 240;
@@ -71,11 +74,11 @@ public:
 
 	void renderHitObjectsText(SDL_Renderer* ren, int nNumber) {
 
-		if (nNumber >= 0 && nNumber <= 7) {
+		if (nNumber >= 0 && nNumber <= 10) {
 			SDL_RenderCopy(ren, hitObjects[nNumber], nullptr, &hitObjectsRect);
 		}
 		else {
-			SDL_RenderCopy(ren, hitObjects[7], nullptr, &hitObjectsRect);
+			SDL_RenderCopy(ren, hitObjects[10], nullptr, &hitObjectsRect);
 		}
 
 	}
