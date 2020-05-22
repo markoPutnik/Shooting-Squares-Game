@@ -144,10 +144,12 @@ void Game::update() {
 
 		if (playerObject->returnCounterMissedObjects() == 3) {
 			m_Running = false;
+			bHasWon = false;
 		}
 
 		if (playerObject->returnCounterHitObjects() == 10) {
 			m_Running = false;
+			bHasWon = true;
 		}
 
 	}
@@ -193,6 +195,12 @@ void Game::render() {
 	else {
 
 		menu->renderGoBackOption(renderer);
+		if (bHasWon) {
+
+		}
+		else {
+
+		}
 
 	}
 

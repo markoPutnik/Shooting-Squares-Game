@@ -24,6 +24,7 @@ private:
 	bool spaceKeyPressed;
 	bool spaceKeyReleased;
 	bool bHoldingKey;
+	bool bHasWon;
 
 	int m_counter = 0;
 	int mouseX, mouseY;
