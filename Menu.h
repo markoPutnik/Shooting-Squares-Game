@@ -7,12 +7,15 @@ private:
 	SDL_Texture* texture;
 	SDL_Texture* missionTex;
 	SDL_Texture* goBackButtonTex;
-	SDL_Texture* goBackOptionTex;
+	SDL_Texture* goBackOptionTex;	
+	SDL_Texture* wonText;
+	SDL_Texture* lostText;
 
 	SDL_Rect menuRect;
 	SDL_Rect missionRect;
 	SDL_Rect goBackButtonRect;
 	SDL_Rect goBackOptionRect;
+	SDL_Rect wonAndLostTextRect;
 
 public:
 
@@ -23,11 +26,14 @@ public:
 		missionTex = TextureManager::getTex(ren, "assets/missionMenu.bmp");
 		goBackButtonTex = TextureManager::getTex(ren, "assets/goBackButton.bmp");
 		goBackOptionTex = TextureManager::getTex(ren, "assets/pressPButton.bmp");
+		wonText = TextureManager::getTex(ren, "assets/wonText.bmp");
+		lostText = TextureManager::getTex(ren, "assets/lostText.bmp");
 
 		menuRect = { 1080/3 + 20, 720/3 + 20,320, 222 };
 		missionRect = { 1080 / 3 , 720 / 3 , 360 , 240 };
 		goBackButtonRect = { 20, 20, 150, 70 };
-		goBackOptionRect = { 1080 / 3 - 50 , 720 / 3, 500 , 220 };
+		goBackOptionRect = { 1080 / 3 - 50 , 720 / 3 + 100, 500 , 220 };
+		wonAndLostTextRect = { 1080 / 3 - 50 , 720 / 3 - 150, 500 , 220 };
 
 	}
 	~Menu() {
@@ -52,6 +58,12 @@ public:
 	void renderGoBackOption(SDL_Renderer* ren) {
 
 		SDL_RenderCopy(ren, goBackOptionTex, nullptr, &goBackOptionRect);
+
+	}
+
+	void renderWonOrLostText(bool bWonOrLost, SDL_Renderer* ren) {
+		
+		SDL_RenderCopy(ren, bWonOrLost ? wonText : lostText, nullptr, &wonAndLostTextRect);
 
 	}
 

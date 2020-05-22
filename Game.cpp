@@ -195,12 +195,7 @@ void Game::render() {
 	else {
 
 		menu->renderGoBackOption(renderer);
-		if (bHasWon) {
-
-		}
-		else {
-
-		}
+		menu->renderWonOrLostText(bHasWon, renderer);
 
 	}
 
